@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@syncfusion/ej2-material-theme/styles/customized/material.css";
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+@import 'app/custom-styles/tree.scss';
+@import 'app/custom-styles/syncfusion/data-grid.scss';
+@import '~bootstrap/scss/bootstrap';
+@import '~ngx-toastr/toastr';
+
+* {
+    font-size: small;
+    font-family: 'amazon';
+}
+@font-face {
+    font-family: amazon;
+    src: url(assets/fonts/AmazonEmber_Rg.ttf) format("opentype");
+  }
+
+.disabled-link {
+    text-decoration: none;
+    color: black;
+    pointer-events: none;
+}
+  
+.enabled-link {
+    cursor: pointer;
+}
+
+.form-header{
+    background-color: #D1E7DD;
+}
+
+.e-grid .e-summarycell {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row-header {
+    background-color: #D1E7DD;
+}

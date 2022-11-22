@@ -1,0 +1,150 @@
+<div class="gravami-container">
+  <div class="col-12 pt-2 pb-2">
+    <ejs-grid #grid height='500' 
+      [dataSource]='gravamiData' 
+      [allowPaging]="true"
+      [allowTextWrap]='true'
+      (dataBound)='dataBound()'
+      [toolbar]='toolbarOptions' 
+      [editSettings]='editSettings' 
+      [resizeSettings]="resizeSettings"
+      [pageSettings]="pageSettings" 
+      (actionBegin)="actionBegin($event)" 
+      (actionComplete)="actionComplete($event)">
+
+      <e-columns>
+        <e-column *ngFor="let col of columnMetaData" 
+          [visible]="col.visible" 
+          [isPrimaryKey]="col.isPrimaryKey"
+          headerTextAlign='left' 
+          textAlign='left' 
+          [field]="col.field" 
+          [headerText]="col.header"
+          [format]="col.format"
+          [type]="col.type" 
+          [width]="col.width">
+        </e-column>
+      </e-columns>
+
+      <ng-template #editSettingsTemplate let-rowData header='Dialog'>
+        <div [formGroup]="gridModalForm">
+          <div class="row mt-2">
+            <div class="form-group col-4">
+              <ejs-dropdownlist id="gradoIpoteca" name="gradoIpoteca" formControlName="gradoIpoteca"
+                [dataSource]='gradoDropDownData' [fields]="{text: 'name', value: 'id' }" cssClass="e-outline e-small"
+                placeholder="Grado" popupHeight='300px' floatLabelType='Auto'>
+              </ejs-dropdownlist>
+              <div id="gradoIpotecaError" *ngIf="gradoIpoteca?.errors?.['required']">
+                <label class="e-error d-flex" for="gradoIpoteca" id="gradoIpoteca-info">*Il campo
+                  e'obbligatorio</label>
+              </div>
+            </div>
+            <div class="form-group col-8">
+              <ejs-dropdownlist id="tipoAggravio" name="tipoAggravio" formControlName="tipoAggravio"
+                [dataSource]='naturaGravameDropDownData' [fields]="{text: 'name', value: 'id' }"
+                cssClass="e-outline e-small" placeholder="Natura Gravame" popupHeight='300px' floatLabelType='Auto'>
+              </ejs-dropdownlist>
+              <div id="tipoAggravioError" *ngIf="tipoAggravio?.errors?.['required']">
+                <label class="e-error d-flex" for="tipoAggravio" id="tipoAggravio-info">*Il campo
+                  e'obbligatorio</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3 form-group">
+              <ejs-numerictextbox id="ndgBeneficiario" formControlName="ndgBeneficiario" name="ndgBeneficiario"
+                [showSpinButton]="false" [format]="creditoreFormat" [maxlength]="10"
+                placeholder="Creditore" cssClass="e-outline e-small" floatLabelType="Auto"></ejs-numerictextbox>
+            </div>
+            <div class="col-1 mt-2">
+              <div class="search-creditore m-auto">
+                <button class="search-creditore-btn me-2" type="button" (click)="onSearchCreditore()"
+                  [disabled]="!ndgBeneficiario?.value">
+                  <img src="assets/icons/search.png">
+                </button>
+              </div>
+            </div>
+            <div class="col-8 form-group">
+              <ejs-textbox id="descrizioneNdg" name="descrizioneNdg" formControlName='descrizioneNdg'
+                placeholder="Intestazione" cssClass="e-outline e-small" floatLabelType="AUto">
+              </ejs-textbox>
+              <div id="descrizioneNdgError" *ngIf="descrizioneNdg?.errors?.['required']">
+                <label class="e-error d-flex" for="descrizioneNdg" id="descrizioneNdg-info">*Il campo
+                  e'obbligatorio</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4 form-group">
+              <ejs-datepicker id="dataIscrizione" name="dataIscrizione" formControlName='dataIscrizione'
+                placeholder="Data Iscrizione" cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-datepicker>
+            </div>
+
+            <div class="col-4 form-group">
+              <ejs-datepicker id="dataScadenza" name="dataScadenza" formControlName='dataScadenza'
+                placeholder="Data Scadenza" cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-datepicker>
+            </div>
+
+            <div class="col-4 form-group">
+              <ejs-datepicker id="dataDebito" name="dataDebito" formControlName='dataDebito' placeholder="Alla data"
+                cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-datepicker>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4 form-group">
+              <ejs-numerictextbox id="importoIpoteca" formControlName="importoIpoteca" name="importoIpoteca"
+                placeholder="Importo Gravame &#8364;" cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-numerictextbox>
+            </div>
+
+            <div class="col-4 form-group">
+              <ejs-numerictextbox id="importoMutuo" formControlName="importoMutuo" name="importoMutuo"
+                placeholder="Importo Mutuo &#8364;" cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-numerictextbox>
+            </div>
+
+            <div class="col-4 form-group">
+              <ejs-numerictextbox id="debitoResiduo" formControlName="debitoResiduo" name="debitoResiduo"
+                placeholder="Debito Residuo &#8364;" cssClass="e-outline e-small" floatLabelType="Auto">
+              </ejs-numerictextbox>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col form-group">
+              <ejs-dropdownlist id="trattIpotecaId" name="trattIpotecaId" formControlName="trattIpotecaId"
+                [dataSource]='statoData' [fields]="{text: 'name', value: 'id' }" cssClass="e-outline e-small"
+                placeholder="Stato" popupHeight='300px' floatLabelType='Auto'>
+              </ejs-dropdownlist>
+              <div id="trattIpotecaIdError" *ngIf="trattIpotecaId?.errors?.['required']">
+                <label class="e-error d-flex" for="trattIpotecaId" id="trattIpotecaId-info">*Il campo
+                  e'obbligatorio</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col form-group">
+              <ejs-textbox id="gtn" formControlName="gtn" name="gtn" placeholder="G.T./N.N."
+                cssClass="e-outline e-small" floatLabelType="Auto"></ejs-textbox>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col form-group">
+              <ejs-textbox id="note" formControlName="note"name="note" placeholder="Note" cssClass="e-outline e-small"
+                floatLabelType="Auto"></ejs-textbox>
+            </div>
+          </div>
+
+        </div>
+      </ng-template>
+    </ejs-grid>
+  </div>
+</div>

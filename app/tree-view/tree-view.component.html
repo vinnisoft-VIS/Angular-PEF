@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right" id="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
+        <div class="tree-view">
+            <tree-root #tree [nodes]="treeNodes" [options]="options" (updateData)="onUpdateData(tree, $event)" [ngClass]="'expand-tree'">
+                <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+                <div class="node-wrapper" [style.padding-left]="node.getNodePadding()"
+                    [ngClass]="{'clickable-node' : isClickableNode(node.data), 'not-clickable-node' : !isClickableNode(node.data)}">
+                    <tree-node-expander [node]="node"></tree-node-expander>
+                    <div class="custom-checkbox" *ngIf="!node.hasChildren && isClickableNode(node.data)">
+                        <img class="mb-2" src="assets/icons/pdf-icon.png" *ngIf="node.data.codice.startsWith('Documenti')">
+                        <app-custom-checkbox  [(ngModel)]="node.data.isChecked" (onCheck)="checkNode(node, {})" *ngIf="!node.data.codice.startsWith('Documenti')"></app-custom-checkbox>
+                    </div>
+                    <div class="node-content-wrapper node-class"
+                        [class.node-content-wrapper-active]="node.isActive"
+                        [class.node-content-wrapper-focused]="node.isFocused"
+                        (click)="node.mouseAction('click', $event)"
+                        (dblclick)="node.mouseAction('dblClick', $event)"
+                        (contextmenu)="node.mouseAction('contextMenu', $event)"
+                        (treeDrop)="node.onDrop($event)"
+                        [treeAllowDrop]="node.allowDrop"
+                        [treeDrag]="node"
+                        [treeDragEnabled]="node.allowDrag()">
+            
+                        <!-- <tree-node-content [node]="node" [index]="index"></tree-node-content> -->
+                        <span [ngClass]="{'strike-through' : node.data.isNameStriked }">{{ node.data.name }}</span>
+                        <img class="ms-2 create-node" src="assets/icons/add-13.png" (click)="createNode(node)" *ngIf="parentsForCreateNodes.indexOf(node.data.codice) !== -1">
+                        <img class="ms-2 create-node" src="assets/icons/remove-13.png" (click)="deleteNode(node)" *ngIf="isNodeRemovable(node)">
+                        <img class="ms-2 create-node" src="assets/icons/ripristina.png" (click)="ripristina(node)" *ngIf="hasChildrenDeleted(node)">
+                    </div>
+                </div>
+                </ng-template>
+            </tree-root>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "timer" [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+  </ngx-spinner>

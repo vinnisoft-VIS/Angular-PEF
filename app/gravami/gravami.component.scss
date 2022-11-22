@@ -1,0 +1,16 @@
+.search-creditore-btn,
+.create-creditore-btn,
+.open-report-btn {
+  border: none;
+  background: #fff;
+
+  &:hover:disabled {
+    cursor: not-allowed;
+  }
+}
+.e-grid .e-headercelldiv,   //for header
+.e-grid .e-rowcell,         //for content
+.e-grid .e-summarycell,   //for summary
+.e-grid .e-row .e-input-group .e-input .e-field {  //for edit state
+    font-size: 12px !important;
+  }

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #b4ddd1;">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+          <img src="assets/images/mcc-logo.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" (click)="returnToMainMenu()">Main menu</a>
+            <a class="nav-link" (click)="returnToPratica()" *ngIf="!isProduction">Pratica</a>
+            <a class="nav-link" (click)="refresh()" *ngIf="!isProduction">Refresh</a>
+            <div class="load-task-section d-flex" *ngIf="!isProduction"> 
+              <ejs-textbox 
+                placeholder="Pratica Id" 
+                [(ngModel)]="inputtedTaskId"
+                cssClass="e-outline e-small"
+                floatLabelType="Auto">
+              </ejs-textbox>
+              <a class="nav-link" (click)="loadTask()">Load task</a>
+            </div>
+          </div>
+        </div>
+      </div>
+</nav>

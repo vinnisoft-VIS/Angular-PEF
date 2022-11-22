@@ -1,0 +1,48 @@
+<div class="dati-pratica-container mt-2">
+  <div class="search-form">
+    <div class="card card-body">
+      <div class="container-fluid">
+        <div class="row row-header mb-2 g-0">
+          <h6 class="float-start mt-1 ms-2">Questionario Adeguata Verifica acquisito </h6>
+        </div>
+        <form [formGroup]="adeguataVerificaForm">
+          <div *ngFor="let anagData of adeguataVerificaRowData">
+            <app-anag-details-row 
+              [adeguataVerificaRowData]="anagData"
+              [questionarioAdeguataDropdownData]="questionarioAdeguataDropdownData">
+            </app-anag-details-row>
+          </div>
+          <div class="row mt-2" *ngIf="adeguataVerificaRowData?.length">
+            <div class="col-md text-end">
+              <ejs-textbox 
+                id="noteId" 
+                name="note" 
+                formControlName="note" 
+                placeholder="Note" 
+                cssClass="e-outline e-small" 
+                floatLabelType="Auto"
+                [multiline]="true" 
+                (change)="inputChange($event, 'note', 'Note', 'MtAnag')">
+              </ejs-textbox>
+            </div>
+          </div>
+          <div class="row mt-2" *ngIf="adeguataVerificaData.isVisibleForzatura">
+            <div class="col-md text-end">
+              <ejs-dropdownlist 
+                id="forzaturaRevUfficioId"
+                name="ForzaturaRevUfficio" 
+                formControlName="forzaturaRevUfficio"
+                placeholder="Forzatura per revoca d'ufficio (Controllo tit effetivo/doc. identita)"
+                cssClass="e-outline e-small" 
+                floatLabelType="Auto"
+                [dataSource]="questionarioAdeguataDropdownData" 
+                [fields]="fields" 
+                (change)="inputChange($event, 'forzaturaRevUfficio', 'ForzaturaRevUfficio', 'MtAnag')">
+              </ejs-dropdownlist>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

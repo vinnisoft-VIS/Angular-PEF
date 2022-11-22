@@ -1,0 +1,30 @@
+.e-grid .e-gridpager .e-currentitem {
+    background-color: #007D57;
+}
+
+.e-grid .e-filterbarcell .e-input-group.e-input-focus::after,
+.e-grid .e-filterbarcell .e-input-group.e-input-focus::before{
+      background-color: #007D57;
+}
+
+.e-grid {
+    .e-toolbar {
+        background-color: #D1E7DD;
+
+        .e-btn {
+            background-color: #D1E7DD;
+        }
+
+        .e-toolbar-items {
+            background-color: #D1E7DD;
+
+            .e-toolbar-item.e-overlay {
+                background-color: #D1E7DD;
+            }
+        }
+    }
+}
+
+.e-grid .e-control.e-toolbar .e-tbar-btn-text{ 
+    display: none; 
+} 

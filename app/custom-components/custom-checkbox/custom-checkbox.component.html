@@ -1,0 +1,21 @@
+<label class="checkbox-container">
+    <input
+      class="checkbox-input"
+      type="checkbox"
+      [(ngModel)]="checked"
+      (ngModelChange)="onModelChange($event)"
+    />
+    <div class="checkbox-border">
+      <div class="checkbox-checked" *ngIf="checked">
+        <div class="icon-container">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </div>
+      </div>
+
+      <div class="checkbox-unchecked" *ngIf="!checked">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </div>
+    </div>
+    <ng-content> </ng-content>
+  </label>
+  

@@ -1,0 +1,82 @@
+  <div class="pratiche-wrapper mt-2 mx-2">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <div class="container-fluid">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a (click)="toggleTree()" role="button">
+                      <img src="assets/icons/menu-square.png">
+                  </a>
+              </li>
+          </ul>
+          <div class="toolbar-options">
+              <a (click)="savePratica(false)" role="button">
+                  <img src="assets/icons/save.png">
+              </a>
+              <a class="mx-3" (click)="savePratica(true)" role="button">
+                  <img src="assets/icons/eseguito.png">
+              </a>
+              <a class="enabled-link" (click)="chiudi()" role="button">
+                  <img src="assets/icons/exit.png">
+              </a>
+          </div>
+      </div>
+  </nav>
+  <div class="wrapper-container" [ngSwitch]="nodeType">
+        <ng-container *ngIf="praticaTipoCode === 5">
+            <app-dati-pratica *ngSwitchCase="praticheViewNodeType.DatiMutuoNode" 
+                [praticaId]="praticaId" 
+                [praticaTipoCode]="praticaTipoCode" 
+                [statoId]="statoId">
+            </app-dati-pratica>
+        </ng-container>
+        <ng-container *ngIf="praticaTipoCode === 201">
+            <app-dati-pratica-pca *ngSwitchCase="praticheViewNodeType.DatiMutuoNode"
+                [praticaId]="praticaId" 
+                [praticaTipoCode]="praticaTipoCode" 
+                [statoId]="statoId">
+            </app-dati-pratica-pca>
+        </ng-container>
+        <app-garanzie *ngSwitchCase="praticheViewNodeType.GaranziaNode" [praticaId]="praticaId"></app-garanzie>
+        <app-assicurazioni *ngSwitchCase="praticheViewNodeType.AssicurazioniPolizzeNode" [praticaId]="praticaId"></app-assicurazioni>
+        <app-bilancio-sintetico *ngSwitchCase="praticheViewNodeType.BilancioSintetico" [praticaId]="praticaId"></app-bilancio-sintetico>
+        <app-nota-iscrizione-ipotecaria *ngSwitchCase="praticheViewNodeType.NotaIscrizioneIpotecariaNode" [praticaId]="praticaId"></app-nota-iscrizione-ipotecaria>
+        <app-panello-di-controllo *ngSwitchCase="praticheViewNodeType.PanelloDiControllo"  [entityId]="praticaId" [praticaTipoCode]="praticaTipoCode" [executive]="executive"></app-panello-di-controllo>
+        <app-scheda-analisi *ngSwitchCase="praticheViewNodeType.SchedaAnalisi" [entityId]="praticaId" [praticaTipoCode]="praticaTipoCode"></app-scheda-analisi>
+        <app-sintesi-della-proposta [entityId]="praticaId" [executive]="executive" *ngSwitchCase="praticheViewNodeType.SintesiDellaProposta"></app-sintesi-della-proposta>
+        <app-approfondimenti [entityId]="praticaId" [executive]="executive" *ngSwitchCase="praticheViewNodeType.Approfondimenti"></app-approfondimenti>
+        <app-pareri-expressi *ngSwitchCase="praticheViewNodeType.PareriExpressi" [entityId]="praticaId" [executive]="executive" [applicative]="applicative"></app-pareri-expressi>
+        <app-banche-dati *ngSwitchCase="praticheViewNodeType.BancheDati" [entityId]="praticaId" [executive]="executive"></app-banche-dati>
+        <app-pareri-expressi-child *ngSwitchCase="praticheViewNodeType.PareriExpressiChild" [entityId]="praticaId" [statoId]="statoId" [executive]="executive" ></app-pareri-expressi-child>
+        <app-immobile *ngSwitchCase="praticheViewNodeType.Immobile" [praticaId]="praticaId" [immobileId]="immobileId"></app-immobile>
+        <app-gravami *ngSwitchCase="praticheViewNodeType.Gravami" [praticaId]="praticaId" [immobileId]="immobileId"></app-gravami>
+        <app-dati-sociologici *ngSwitchCase="praticheViewNodeType.DatiSociologici" [anagId]="anagId" [praticaId]="praticaId"></app-dati-sociologici>
+        <app-forms-wrapper [executive]="executive" *ngIf="(anagraficaDettTypes.indexOf(nodeType)) > -1"></app-forms-wrapper>
+        <app-forms-wrapper *ngSwitchCase="praticheViewNodeType.NewChildGarante" [executive]="executive"></app-forms-wrapper>
+        <app-forms-wrapper *ngSwitchCase="praticheViewNodeType.NewChildTerzo" [executive]="executive"></app-forms-wrapper>
+        <app-altro-nominativo *ngSwitchCase="praticheViewNodeType.NewChildAltro" [praticaId]="praticaId"></app-altro-nominativo>
+        <app-banche-dati-esterne-storiche *ngSwitchCase="praticheViewNodeType.BancheDatiEsterneStoriche" [ndg]="ndg" [praticaId]="praticaId"></app-banche-dati-esterne-storiche>
+        <app-recapiti-e-contatti *ngSwitchCase="praticheViewNodeType.RecapitiEContatti" [anagId]="anagId" [praticaId]="praticaId"></app-recapiti-e-contatti>
+        <app-pareri *ngSwitchCase="praticheViewNodeType.ParereNode" [praticaId]="praticaId" [praticaRelazioneId]="praticaRelazioneId"></app-pareri>
+        <app-patrimonio *ngSwitchCase="praticheViewNodeType.Patrimonio" [anagId]="anagId" [praticaId]="praticaId"></app-patrimonio>
+        <app-patrimonio-dati-informativi *ngSwitchCase="praticheViewNodeType.PatrimonioDatiInformativi" [anagId]="anagId" [praticaId]="praticaId"></app-patrimonio-dati-informativi>
+        <app-patrimonio-pf *ngSwitchCase="praticheViewNodeType.PatrimonioPF" [anagId]="anagId" [praticaId]="praticaId"></app-patrimonio-pf>
+        <app-adeguata-verifica *ngSwitchCase="praticheViewNodeType.AdeguataVerificaNode" [praticaId]="praticaId"></app-adeguata-verifica>
+        <app-questionario-high-risk *ngSwitchCase="praticheViewNodeType.FidiHighRiskNode" [praticaId]="praticaId"></app-questionario-high-risk>
+        <app-dati-statistici *ngSwitchCase="praticheViewNodeType.DatiStatisticiNode" [anagId]="anagId" [praticaId]="praticaId"></app-dati-statistici>
+        <app-dati-azienda *ngSwitchCase="praticheViewNodeType.DatiAzienda" [anagId]="anagId"></app-dati-azienda>
+        <app-visure *ngSwitchCase="praticheViewNodeType.VisureNode" [praticaId]="praticaId"></app-visure>
+        <app-situazione-esposizione-fatturato *ngSwitchCase="praticheViewNodeType.SituazEsposFattNode" [anagId]="anagId" [praticaId]="praticaId"></app-situazione-esposizione-fatturato>
+        <app-situazione-contabile-lavori *ngSwitchCase="praticheViewNodeType.SituazContabLavoriNode" [anagId]="anagId" [praticaId]="praticaId"></app-situazione-contabile-lavori>
+        <app-collegamenti *ngSwitchCase="praticheViewNodeType.Collegamenti" [praticaId]="praticaId"></app-collegamenti>
+        <app-difficolta-finanziaria *ngSwitchCase="praticheViewNodeType.DifficoltaFinanziariaNode" [praticaId]="praticaId"></app-difficolta-finanziaria>
+        <app-gruppi *ngSwitchCase="praticheViewNodeType.GruppiNode" [anagId]="anagId" [praticaId]="praticaId"></app-gruppi>
+        <app-patrimonio-responsabile *ngSwitchCase="praticheViewNodeType.PatrimonioResponsabileNode" [praticaId]="praticaId"></app-patrimonio-responsabile>
+        <app-rischio-globale *ngSwitchCase="praticheViewNodeType.RischioGlobaleNode" [praticaId]="praticaId" [praticaTipoCode]="praticaTipoCode"></app-rischio-globale>
+        <app-perimetro *ngSwitchCase="praticheViewNodeType.PerimetroNode" [praticaId]="praticaId" [anagId]="anagId" [praticaTipoCode]="praticaTipoCode"></app-perimetro>
+        <app-lavoposi *ngSwitchCase="praticheViewNodeType.LavoposiNode" [praticaId]="praticaId"></app-lavoposi>
+        <app-scheda-sintesi *ngSwitchCase="praticheViewNodeType.SchedaSintesiNode" [praticaId]="praticaId" [praticaTipoCode]="praticaTipoCode"></app-scheda-sintesi>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

@@ -1,0 +1,33 @@
+export interface AltroNominativo {
+    anagId?: string;
+    natgiuId?: string;
+    ruolo?: string;
+    tipoNaturaGiuridicaCode?: string;
+    ndgCedacri?: number;
+    denominazione?: string;
+    partitaiva?: string;
+    nome?: string;
+    cognome?: string;
+    sesso?: string;
+    cabnascitaId?: string;
+    comuneNascita?: string;
+    provnasc?: string;
+    datanasc?: Date;
+    codFisc?: string;
+    userIdLast?: string;
+    datasysLast?: Date;
+    note?: string;
+    indirizzo?: string;
+    comune?: string;
+    provincia?: string;
+    legame?: number;
+    addSource?: string;
+    reaLegProv?: string;
+    reaLegNumero?: string;
+    dataInizioAttivita?: Date;
+    manual?: boolean;
+    tipolegameId?: string;
+    caeId?: string;
+    segmentoAppartenenza?: string;
+    tipoDipendente?: number;
+}
